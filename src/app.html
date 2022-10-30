@@ -8,5 +8,38 @@
 	</head>
 	<body>
 		<div>%sveltekit.body%</div>
+
+		<canvas id="springydemo" width="640" height="480" />
+
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+		<script src="/springy.js"></script>
+		<script src="/springyui.js"></script>
+		<script>
+			let graphData = {
+				nodes: ['a', 'b', 'c', 'd', 'e', 'f', "cat", "Floof"],
+				edges: [
+					['a', "cat", {label:"isA"}],
+					['b', "cat", {label:"isA"}],
+					['c', "cat", {label:"isA"}],
+					['d', "cat", {label:"isA"}],
+					['e', "cat", {label:"isA"}],
+					['f', "cat", {label:"isA"}],
+					['a', 'b', {label:'parentOf'}],
+					['a', 'c', {label: 'parentOf'}],
+					['a', "Floof", {label:'hasNickname'}],
+				]
+			};
+		
+			var graph = new Springy.Graph();
+			graph.loadJSON(graphData);
+			
+			jQuery(function(){
+			  var springy = window.springy = jQuery('#springydemo').springy({
+				graph: graph,
+    			nodeSelected: function(node){
+      				console.log('Node selected: ' + JSON.stringify(node.data));
+    			}});
+			});
+		</script>		
 	</body>
 </html>
