@@ -24,9 +24,9 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
-var Springy = {};
+export var Springy = {};
 
-var Graph = Springy.Graph = function() {
+export var Graph = Springy.Graph = function() {
 	this.nodeSet = {};
 	this.nodes = [];
 	this.edges = [];
@@ -463,14 +463,14 @@ Layout.ForceDirected.prototype.totalEnergy = function(timestep) {
 
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; }; // stolen from coffeescript, thanks jashkenas! ;-)
 
-Springy.requestAnimationFrame = __bind(this.requestAnimationFrame ||
-	this.webkitRequestAnimationFrame ||
-	this.mozRequestAnimationFrame ||
-	this.oRequestAnimationFrame ||
-	this.msRequestAnimationFrame ||
-	(function(callback, element) {
-		this.setTimeout(callback, 10);
-	}), this);
+// Springy.requestAnimationFrame = __bind(this.requestAnimationFrame ||
+// 	this.webkitRequestAnimationFrame ||
+// 	this.mozRequestAnimationFrame ||
+// 	this.oRequestAnimationFrame ||
+// 	this.msRequestAnimationFrame ||
+// 	(function(callback, element) {
+// 		this.setTimeout(callback, 10);
+// 	}), this);
 
 
 /**
@@ -486,7 +486,7 @@ Layout.ForceDirected.prototype.start = function(render, onRenderStop, onRenderSt
 
 	if (onRenderStart !== undefined) { onRenderStart(); }
 
-	Springy.requestAnimationFrame(function step() {
+	window.requestAnimationFrame(function step() {
 		t.tick(0.03);
 
 		if (render !== undefined) {
@@ -498,7 +498,7 @@ Layout.ForceDirected.prototype.start = function(render, onRenderStop, onRenderSt
 			t._started = false;
 			if (onRenderStop !== undefined) { onRenderStop(); }
 		} else {
-			Springy.requestAnimationFrame(step);
+			window.requestAnimationFrame(step);
 		}
 	});
 };

@@ -11,32 +11,7 @@
 
 		<canvas id="springydemo" width="640" height="480" />
 
-		<script src="/springy.js"></script>
-		<script src="/springyui.js"></script>
 		<script>
-			let graphData = {
-				nodes: ['a', 'b', 'c', 'd', 'e', 'f', "cat", "Floof"],
-				edges: [
-					['a', "cat", {label:"isA"}],
-					['b', "cat", {label:"isA"}],
-					['c', "cat", {label:"isA"}],
-					['d', "cat", {label:"isA"}],
-					['e', "cat", {label:"isA"}],
-					['f', "cat", {label:"isA"}],
-					['a', 'b', {label:'parentOf'}],
-					['a', 'c', {label: 'parentOf'}],
-					['a', "Floof", {label:'hasNickname'}],
-				]
-			};
-		
-			var graph = new Springy.Graph();
-			graph.loadJSON(graphData);
-						
-			var springy = window.springy = springy(document.getElementById('springydemo'), {
-			graph: graph,
-			nodeSelected: function(node){
-				console.log('Node selected: ' + JSON.stringify(node.data));
-			}});
 		
 		</script>		
 	</body>

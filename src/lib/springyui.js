@@ -23,8 +23,10 @@ Copyright (c) 2010 Dennis Hotson
  OTHER DEALINGS IN THE SOFTWARE.
 */
 
-function springy(canvas, params) {
-    var graph = this.graph = params.graph || new Springy.Graph();
+import {Springy} from './springy';
+
+export function springy(canvas, params) {
+    var graph = params.graph || new Springy.Graph();
     var nodeFont = "16px Verdana, sans-serif";
     var edgeFont = "8px Verdana, sans-serif";
     var stiffness = params.stiffness || 400.0;
@@ -37,14 +39,14 @@ function springy(canvas, params) {
 
     var ctx = canvas.getContext("2d");
 
-    var layout = this.layout = new Springy.Layout.ForceDirected(graph, stiffness, repulsion, damping, minEnergyThreshold);
+    var layout = new Springy.Layout.ForceDirected(graph, stiffness, repulsion, damping, minEnergyThreshold);
 
     // calculate bounding box of graph layout.. with ease-in
     var currentBB = layout.getBoundingBox();
     var targetBB = {bottomleft: new Springy.Vector(-2, -2), topright: new Springy.Vector(2, 2)};
 
     // auto adjusting bounding box
-    Springy.requestAnimationFrame(function adjust() {
+    window.requestAnimationFrame(function adjust() {
         targetBB = layout.getBoundingBox();
         // current gets 20% closer to target every iteration
         currentBB = {
@@ -54,7 +56,7 @@ function springy(canvas, params) {
                 .divide(10))
         };
 
-        Springy.requestAnimationFrame(adjust);
+        window.requestAnimationFrame(adjust);
     });
 
     // convert to/from screen coordinates
@@ -178,7 +180,7 @@ function springy(canvas, params) {
         return width;
     }
 
-    var renderer = this.renderer = new Springy.Renderer(layout,
+    var renderer = new Springy.Renderer(layout,
         function clear() {
             ctx.clearRect(0,0,canvas.width,canvas.height);
         },
@@ -270,7 +272,7 @@ function springy(canvas, params) {
 
             // label
             if (edge.data.label !== undefined) {
-                text = edge.data.label
+                let text = edge.data.label
                 ctx.save();
                 ctx.textAlign = "center";
                 ctx.textBaseline = "top";

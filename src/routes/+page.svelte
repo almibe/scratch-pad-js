@@ -2,6 +2,35 @@
 import cytoscape from 'cytoscape';
 import d3Force from 'cytoscape-d3-force';
 import { onMount } from 'svelte';
+import {Springy, Graph} from "../lib/springy";
+import {springy } from "../lib/springyui";
+onMount(() => {
+    let graphData = {
+				nodes: ['a', 'b', 'c', 'd', 'e', 'f', "cat", "Floof"],
+				edges: [
+					['a', "cat", {label:"isA"}],
+					['b', "cat", {label:"isA"}],
+					['c', "cat", {label:"isA"}],
+					['d', "cat", {label:"isA"}],
+					['e', "cat", {label:"isA"}],
+					['f', "cat", {label:"isA"}],
+					['a', 'b', {label:'parentOf'}],
+					['a', 'c', {label: 'parentOf'}],
+					['a', "Floof", {label:'hasNickname'}],
+				]
+			};
+		
+			var graph = new Graph();
+			graph.loadJSON(graphData);
+						
+			springy(document.getElementById('springydemo'), {
+			graph: graph,
+			nodeSelected: function(node){
+				console.log('Node selected: ' + JSON.stringify(node.data));
+			}});
+})
+
+//TODO remove below
 
 cytoscape.use( d3Force );
 
